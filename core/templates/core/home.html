@@ -1,0 +1,287 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guilherme Alves | Portfólio</title>
+    <link rel="stylesheet" href="{% static 'core/css/style.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+
+<!-- ══ HEADER ══ -->
+<header class="header">
+    <div class="container nav">
+        <span class="nav-logo">Guilherme Alves</span>
+        <nav class="nav-links">
+            <a href="#inicio">Início</a>
+            <a href="#sobre">Sobre</a>
+            <a href="#projetos">Projetos</a>
+            <a href="#contato">Contato</a>
+        </nav>
+    </div>
+</header>
+
+<!-- ══ HERO ══ -->
+<section id="inicio" class="hero">
+    <div class="container">
+        <div class="hero-inner">
+
+            <div class="hero-text">
+            <span class="hero-label">DESENVOLVEDOR EM FORMAÇÃO</span>
+
+            <h1 class="hero-title">GUILHERME <span>ALVES</span></h1>
+
+            <p class="hero-sub">
+                Estudante de Sistemas de Informação, desenvolvendo habilidades e construindo projetos reais.
+            </p>
+                
+                <div class="badge">
+                    Disponível para oportunidades
+                </div>
+
+                <div class="hero-actions">
+                    <a href="#projetos" class="btn btn-primary">Ver projetos</a>
+                    <a href="#contato" class="btn btn-outline">Falar comigo</a>
+                </div>
+            </div>
+
+            <div class="hero-photo-wrap">
+                <img src="{% static 'core/img/perfil.png' %}" class="hero-photo" alt="Guilherme Alves">
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<main class="container">
+
+    <!-- ══ SOBRE ══ -->
+    <section id="sobre" class="section">
+        <p class="section-label">Quem sou eu</p>
+        <h2 class="section-title">Sobre Mim</h2>
+
+        {% if about %}
+        <div class="about-grid">
+            <div class="about-text">
+                <p>{{ about.description|linebreaks }}</p>
+            </div>
+
+            <div class="about-details">
+                <div class="detail-item">
+                    <span class="detail-icon">🎓</span>
+                    <div>
+                        <strong>Área</strong>
+                        <span>Desenvolvimento de Software</span>
+                    </div>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-icon">🛠️</span>
+                    <div>
+                        <strong>Stack principal</strong>
+                        <span>C# · Python · ASP.NET Core · SQL</span>
+                    </div>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-icon">📍</span>
+                    <div>
+                        <strong>Localização</strong>
+                        <span>Brasil</span>
+                    </div>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-icon">✅</span>
+                    <div>
+                        <strong>Disponibilidade</strong>
+                        <span>Aberto a oportunidades</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    </section>
+
+    <!-- ══ FORMAÇÃO ══ -->
+    {% if education %}
+    <section class="section">
+        <p class="section-label">Trajetória</p>
+        <h2 class="section-title">Formação</h2>
+
+        <div class="timeline">
+            {% for edu in education %}
+            <div class="timeline-item">
+                <h3>{{ edu.course }}</h3>
+                <p>{{ edu.institution }}</p>
+                <span class="timeline-period">{{ edu.period }}</span>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+    {% endif %}
+
+    <!-- ══ CURSOS ══ -->
+    {% if courses %}
+    <section class="section">
+        <p class="section-label">Aprendizado contínuo</p>
+        <h2 class="section-title">Cursos</h2>
+
+        <div class="projects-grid">
+            {% for c in courses %}
+            <div class="project-card">
+                <div class="project-body">
+                    <h3 style="margin-bottom:8px;">{{ c.name }}</h3>
+
+                    {% if c.platform or c.conclusion_date %}
+                    <p style="color:var(--muted);font-size:.85rem;margin-bottom:16px;">
+                        {% if c.platform %}{{ c.platform }}{% endif %}
+                        {% if c.platform and c.conclusion_date %} · {% endif %}
+                        {% if c.conclusion_date %}{{ c.conclusion_date }}{% endif %}
+                    </p>
+                    {% endif %}
+
+                    {% if c.certificate %}
+                        <a href="{{ c.certificate.url }}" target="_blank" class="btn btn-outline btn-sm">
+                            Ver certificado
+                        </a>
+                    {% else %}
+                        <span style="color:var(--muted);font-size:.88rem;">Certificado não disponível</span>
+                    {% endif %}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+    {% endif %}
+
+    <!-- ══ TECNOLOGIAS ══ -->
+    {% if technologies %}
+    <section class="section">
+        <p class="section-label">Ferramentas que uso</p>
+        <h2 class="section-title">Tecnologias</h2>
+
+        <div class="tech-grid">
+            {% for tech in technologies %}
+            <div class="tech-item">
+                {% if tech.icon %}
+                    <img src="{{ tech.icon.url }}" alt="{{ tech.name }}">
+                {% else %}
+                    <span style="font-size:1.5rem;">💻</span>
+                {% endif %}
+                <span>{{ tech.name }}</span>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+    {% endif %}
+
+    <!-- ══ PROJETOS ══ -->
+    <section id="projetos" class="section">
+        <p class="section-label">Projetos e Experimentos</p>
+        <h2 class="section-title">Projetos</h2>
+
+        <div class="projects-grid">
+            {% for project in projects %}
+            <div class="project-card">
+
+                {% if project.gif %}
+                <div class="project-img-wrap">
+                    <img src="{{ project.gif.url }}" alt="{{ project.title }}">
+                </div>
+                {% elif project.image %}
+                <div class="project-img-wrap">
+                    <img src="{{ project.image.url }}" alt="{{ project.title }}">
+                </div>
+                {% endif %}
+
+                <div class="project-body">
+                    <h3>
+                        <a href="{% url 'project_detail' project.slug %}">
+                            {{ project.title }}
+                        </a>
+                    </h3>
+                    <p>{{ project.description|truncatewords:25 }}</p>
+
+                    {% if project.technologies.all %}
+                    <div class="project-tags">
+                        {% for tech in project.technologies.all %}
+                            <span class="tag">{{ tech.name }}</span>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+
+                    <div class="project-links">
+                        {% if project.github_link %}
+                            <a href="{{ project.github_link }}" target="_blank" class="btn btn-outline btn-sm">
+                                GitHub
+                            </a>
+                        {% endif %}
+                        {% if project.deploy_link %}
+                            <a href="{{ project.deploy_link }}" target="_blank" class="btn btn-primary btn-sm">
+                                Ver Projeto
+                            </a>
+                        {% endif %}
+                    </div>
+                </div>
+
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+
+    <!-- ══ CONTATO ══ -->
+<section id="contato" class="section contato-cta">
+    <p class="section-label">Contato</p>
+    <h2 class="section-title">Vamos trabalhar juntos</h2>
+
+    <p class="contato-text">
+        Estou disponível para oportunidades em tecnologia. Me chama direto:
+    </p>
+
+    {% if contact %}
+<div class="contato-links">
+
+    {% if contact.linkedin %}
+    <a href="{{ contact.linkedin }}" target="_blank" class="btn btn-outline">
+        <i class="fa-brands fa-linkedin"></i>
+        LinkedIn
+    </a>
+    {% endif %}
+
+    {% if contact.github %}
+    <a href="{{ contact.github }}" target="_blank" class="btn btn-outline">
+        <i class="fa-brands fa-github"></i>
+        GitHub
+    </a>
+    {% endif %}
+
+    {% if contact.email %}
+    <a href="mailto:{{ contact.email }}" class="btn btn-primary">
+        <i class="fa-solid fa-envelope"></i>
+        Enviar e-mail
+    </a>
+    {% endif %}
+
+    {% if contact.whatsapp %}
+    <a href="https://wa.me/{{ contact.whatsapp }}" target="_blank" class="btn btn-outline">
+        <i class="fa-brands fa-whatsapp"></i>
+        WhatsApp
+    </a>
+    {% endif %}
+
+</div>
+    {% endif %}
+</section>
+
+</main>
+
+<!-- ══ FOOTER ══ -->
+<footer class="footer">
+    <div class="container">
+        <p>© 2026 <span>Guilherme Alves</span> — Desenvolvido com Django</p>
+    </div>
+</footer>
+
+</body>
+</html>
