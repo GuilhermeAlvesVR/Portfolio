@@ -338,25 +338,25 @@ a { text-decoration: none; color: inherit; }
 
 .tech-grid {
     display: flex !important;
-    flex-direction: row !important;
     flex-wrap: wrap !important;
-    gap: 12px;
+    gap: 10px;
     align-items: center;
 }
 
 .tech-grid .tech-item {
     width: auto !important;
-    max-width: fit-content !important;
     flex: 0 0 auto !important;
 
     background: var(--bg2);
     border: 1px solid var(--border);
     border-radius: 10px;
-    padding: 10px 14px;
+
+    padding: 8px 12px;
+    min-height: 48px;
 
     display: inline-flex !important;
     align-items: center;
-    gap: 8px;
+    gap: 6px;
 
     transition: border-color .3s, transform .3s;
     cursor: default;
@@ -368,14 +368,14 @@ a { text-decoration: none; color: inherit; }
 }
 
 .tech-grid .tech-item img {
-    width: 26px;
-    height: 26px;
+    width: 20px;
+    height: 20px;
     object-fit: contain;
 }
 
 .tech-grid .tech-item span {
     font-weight: 500;
-    font-size: .85rem;
+    font-size: 0.82rem;
     color: var(--text);
 }
 
