@@ -103,6 +103,107 @@
         {% endif %}
     </section>
 
+    <!-- ══ PROJETOS ══ -->
+<section id="projetos" class="section">
+    <p class="section-label">Projetos e Experimentos</p>
+    <h2 class="section-title">Projetos</h2>
+
+    <div class="projects-grid">
+        {% for project in projects %}
+        <div class="project-card">
+
+            {% if project.gif %}
+            <div class="project-img-wrap">
+                <img src="{{ project.gif.url }}" alt="{{ project.title }}">
+            </div>
+            {% elif project.image %}
+            <div class="project-img-wrap">
+                <img src="{{ project.image.url }}" alt="{{ project.title }}">
+            </div>
+            {% endif %}
+
+            <div class="project-body">
+                <h3>
+                    <a href="{% url 'project_detail' project.slug %}">
+                        {{ project.title }}
+                    </a>
+                </h3>
+
+                <p>{{ project.description|truncatewords:25 }}</p>
+
+                
+                {% if project.full_description %}
+                <button class="details-btn" onclick="openModal('project-modal-{{ project.id }}')">
+                    Ler mais
+                </button>
+            {% endif %}
+
+                {% if project.technologies.all %}
+                <div class="project-tags">
+                    {% for tech in project.technologies.all %}
+                        <span class="tag">{{ tech.name }}</span>
+                    {% endfor %}
+                </div>
+                {% endif %}
+
+                <div class="project-links">
+                    {% if project.github_link %}
+                        <a href="{{ project.github_link }}" target="_blank" class="btn btn-outline btn-sm">
+                            GitHub
+                        </a>
+                    {% endif %}
+                    {% if project.deploy_link %}
+                        <a href="{{ project.deploy_link }}" target="_blank" class="btn btn-primary btn-sm">
+                            Ver Projeto
+                        </a>
+                    {% endif %}
+                </div>
+            </div>
+
+        </div>
+
+        {% if project.full_description %}
+        <div class="project-modal" id="project-modal-{{ project.id }}">
+            <div class="modal-content">
+
+                <span class="close-btn" onclick="closeModal('project-modal-{{ project.id }}')">
+                    &times;
+                </span>
+
+                <h2>{{ project.title }}</h2>
+
+                <div class="modal-text">
+                    {{ project.full_description|linebreaks }}
+                </div>
+
+            </div>
+        </div>
+        {% endif %}
+
+        {% endfor %}
+    </div>
+</section>
+    <!-- ══ TECNOLOGIAS ══ -->
+    {% if technologies %}
+    <section class="section">
+        <p class="section-label">Ferramentas que uso</p>
+        <h2 class="section-title">Tecnologias</h2>
+
+        <div class="tech-grid">
+            {% for tech in technologies %}
+            <div class="tech-item">
+                {% if tech.icon %}
+                    <img src="{{ tech.icon.url }}" alt="{{ tech.name }}">
+                {% else %}
+                    <span style="font-size:1.5rem;">💻</span>
+                {% endif %}
+                <span>{{ tech.name }}</span>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+    {% endif %}
+
     <!-- ══ FORMAÇÃO ══ -->
     {% if education %}
     <section class="section">
@@ -155,80 +256,9 @@
     </section>
     {% endif %}
 
-    <!-- ══ TECNOLOGIAS ══ -->
-    {% if technologies %}
-    <section class="section">
-        <p class="section-label">Ferramentas que uso</p>
-        <h2 class="section-title">Tecnologias</h2>
 
-        <div class="tech-grid">
-            {% for tech in technologies %}
-            <div class="tech-item">
-                {% if tech.icon %}
-                    <img src="{{ tech.icon.url }}" alt="{{ tech.name }}">
-                {% else %}
-                    <span style="font-size:1.5rem;">💻</span>
-                {% endif %}
-                <span>{{ tech.name }}</span>
-            </div>
-            {% endfor %}
-        </div>
-    </section>
-    {% endif %}
 
-    <!-- ══ PROJETOS ══ -->
-    <section id="projetos" class="section">
-        <p class="section-label">Projetos e Experimentos</p>
-        <h2 class="section-title">Projetos</h2>
 
-        <div class="projects-grid">
-            {% for project in projects %}
-            <div class="project-card">
-
-                {% if project.gif %}
-                <div class="project-img-wrap">
-                    <img src="{{ project.gif.url }}" alt="{{ project.title }}">
-                </div>
-                {% elif project.image %}
-                <div class="project-img-wrap">
-                    <img src="{{ project.image.url }}" alt="{{ project.title }}">
-                </div>
-                {% endif %}
-
-                <div class="project-body">
-                    <h3>
-                        <a href="{% url 'project_detail' project.slug %}">
-                            {{ project.title }}
-                        </a>
-                    </h3>
-                    <p>{{ project.description|truncatewords:25 }}</p>
-
-                    {% if project.technologies.all %}
-                    <div class="project-tags">
-                        {% for tech in project.technologies.all %}
-                            <span class="tag">{{ tech.name }}</span>
-                        {% endfor %}
-                    </div>
-                    {% endif %}
-
-                    <div class="project-links">
-                        {% if project.github_link %}
-                            <a href="{{ project.github_link }}" target="_blank" class="btn btn-outline btn-sm">
-                                GitHub
-                            </a>
-                        {% endif %}
-                        {% if project.deploy_link %}
-                            <a href="{{ project.deploy_link }}" target="_blank" class="btn btn-primary btn-sm">
-                                Ver Projeto
-                            </a>
-                        {% endif %}
-                    </div>
-                </div>
-
-            </div>
-            {% endfor %}
-        </div>
-    </section>
 
     <!-- ══ CONTATO ══ -->
 <section id="contato" class="section contato-cta">
@@ -282,6 +312,23 @@
         <p>© 2026 <span>Guilherme Alves</span> — Desenvolvido com Django</p>
     </div>
 </footer>
+<script>
+function openModal(id) {
+    document.getElementById(id).style.display = 'flex';
+}
+
+function closeModal(id) {
+    document.getElementById(id).style.display = 'none';
+}
+
+window.addEventListener('click', function(event) {
+    document.querySelectorAll('.project-modal').forEach(function(modal) {
+        if (event.target === modal) {
+            modal.style.display = 'none';
+        }
+    });
+});
+</script>
 
 </body>
 </html>

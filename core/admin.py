@@ -10,13 +10,14 @@ class TechnologyAdmin(admin.ModelAdmin):
 @admin.register(Project)
 class ProjectAdmin(admin.ModelAdmin):
     list_display = ("title", "created_at")
-    search_fields = ("title", "description")
+    search_fields = ("title", "description", "full_description")
     filter_horizontal = ("technologies",)
 
     fields = (
         "title",
         "slug",
         "description",
+        "full_description",
         "image",
         "gif",
         "github_link",

@@ -14,6 +14,7 @@ class Project(models.Model):
     title = models.CharField(max_length=100)
     slug = models.SlugField(unique=True, blank=True)
     description = models.TextField()
+    full_description = models.TextField(blank=True, null=True)
     image = models.ImageField(upload_to="projects/", blank=True, null=True)
     gif = models.FileField(upload_to="projects/gifs/", blank=True, null=True)
     github_link = models.URLField(blank=True)
