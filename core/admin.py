@@ -9,7 +9,7 @@ class TechnologyAdmin(admin.ModelAdmin):
 
 @admin.register(Project)
 class ProjectAdmin(admin.ModelAdmin):
-    list_display = ("title", "created_at")
+    list_display = ("title", "order", "created_at")
     search_fields = ("title", "description", "full_description")
     filter_horizontal = ("technologies",)
 
@@ -23,6 +23,7 @@ class ProjectAdmin(admin.ModelAdmin):
         "github_link",
         "deploy_link",
         "technologies",
+        "order",
     )
 
 

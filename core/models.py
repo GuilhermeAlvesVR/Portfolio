@@ -21,10 +21,13 @@ class Project(models.Model):
     deploy_link = models.URLField(blank=True)
     technologies = models.ManyToManyField(Technology, blank=True)
     created_at = models.DateField(auto_now_add=True)
+    order = models.PositiveIntegerField(default=0)
+
+    class Meta:
+        ordering = ["order", "-created_at"]
 
     def __str__(self):
         return self.title
-
 
 class About(models.Model):
     title = models.CharField(max_length=100, default="Sobre mim")
