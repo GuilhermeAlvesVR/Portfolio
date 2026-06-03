@@ -26,3 +26,20 @@ def project_detail(request, slug):
     return render(request, "core/project_detail.html", {
         "project": project,
     })
+from django.http import HttpResponse
+from django.contrib.auth.models import User
+
+
+def criar_admin_temporario(request):
+    username = "adminrender"
+    password = "AdminRender123"
+
+    if not User.objects.filter(username=username).exists():
+        User.objects.create_superuser(
+            username=username,
+            email="guilherme.s.alves96@gmail.com",
+            password=password
+        )
+        return HttpResponse("Superusuario criado com sucesso.")
+
+    return HttpResponse("Superusuario ja existe.")
