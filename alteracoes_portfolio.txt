@@ -37,3 +37,13 @@ Observacao
   ADMIN_SETUP_PASSWORD: nova senha do admin
   ADMIN_SETUP_EMAIL: email do admin, opcional
 - Depois de usar, remova ADMIN_SETUP_TOKEN e ADMIN_SETUP_PASSWORD do Render ou remova essa rota do codigo.
+
+7. Banco persistente com Supabase
+- Adicionei suporte a DATABASE_URL no portfolio/settings.py.
+- Quando DATABASE_URL existir no ambiente, o Django usa o PostgreSQL do Supabase.
+- Quando DATABASE_URL nao existir, o projeto continua usando SQLite localmente.
+- Adicionei as dependencias dj-database-url e psycopg[binary] no requirements.txt.
+- No Render, configure a variavel DATABASE_URL com a connection string URI do Supabase ja com a senha preenchida.
+- No Render, ajuste o Build Command para:
+  pip install -r requirements.txt && python manage.py migrate && python manage.py collectstatic --noinput
+- Depois do deploy, use /configurar-admin-render/?token=SEU_TOKEN para criar ou atualizar o admin no banco novo.
