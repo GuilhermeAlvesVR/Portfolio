@@ -4,46 +4,76 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ project.title }} | Guilherme Alves</title>
     <link rel="stylesheet" href="{% static 'core/css/style.css' %}">
 </head>
 <body>
 
-<div class="container">
-
-    <a href="{% url 'home' %}" class="btn">Voltar</a>
-
-    <h1>{{ project.title }}</h1>
-
-    {% if project.image %}
-        <img src="{{ project.image.url }}" class="project-img">
-    {% endif %}
-
-    <div class="card">
-        <p>{{ project.description|linebreaks }}</p>
+<header class="header">
+    <div class="container nav">
+        <a href="{% url 'home' %}" class="nav-logo">Guilherme Alves</a>
+        <nav class="nav-links">
+            <a href="{% url 'home' %}#projetos">Projetos</a>
+            <a href="{% url 'home' %}#contato">Contato</a>
+        </nav>
     </div>
+</header>
 
-    <h2>Tecnologias usadas</h2>
+<main class="project-detail-page">
+    <div class="container">
+        <a href="{% url 'home' %}#projetos" class="detail-back-link">← Voltar para projetos</a>
 
-    <div class="tech-list">
-        {% for tech in project.technologies.all %}
-            <span>{{ tech.name }}</span>
-        {% empty %}
-            <p>Nenhuma tecnologia cadastrada.</p>
-        {% endfor %}
-    </div>
+        <section class="project-detail-hero">
+            <div>
+                <p class="section-label">Projeto</p>
+                <h1 class="project-detail-title">{{ project.title }}</h1>
+                <p class="project-detail-description">{{ project.description }}</p>
 
-    <div class="buttons">
-        {% if project.github_link %}
-            <a href="{{ project.github_link }}" target="_blank" class="btn">GitHub</a>
+                <div class="project-links detail-actions">
+                    {% if project.github_link %}
+                        <a href="{{ project.github_link }}" target="_blank" class="btn btn-outline">GitHub</a>
+                    {% endif %}
+
+                    {% if project.deploy_link %}
+                        <a href="{{ project.deploy_link }}" target="_blank" class="btn btn-primary">Ver Projeto</a>
+                    {% endif %}
+                </div>
+            </div>
+
+            {% if project.gif %}
+                <div class="project-detail-media">
+                    <img src="{{ project.gif.url }}" alt="Prévia do projeto {{ project.title }}">
+                </div>
+            {% elif project.image %}
+                <div class="project-detail-media">
+                    <img src="{{ project.image.url }}" alt="Imagem do projeto {{ project.title }}">
+                </div>
+            {% endif %}
+        </section>
+
+        {% if project.full_description %}
+        <section class="project-detail-card">
+            <h2>Sobre o projeto</h2>
+            <div class="modal-text">
+                {{ project.full_description|linebreaks }}
+            </div>
+        </section>
         {% endif %}
 
-        {% if project.deploy_link %}
-            <a href="{{ project.deploy_link }}" target="_blank" class="btn secondary">Ver Projeto</a>
-        {% endif %}
-    </div>
+        <section class="project-detail-card">
+            <h2>Tecnologias usadas</h2>
 
-</div>
+            <div class="project-tags detail-tags">
+                {% for tech in project.technologies.all %}
+                    <span class="tag">{{ tech.name }}</span>
+                {% empty %}
+                    <p class="empty-text">Nenhuma tecnologia cadastrada.</p>
+                {% endfor %}
+            </div>
+        </section>
+    </div>
+</main>
 
 </body>
 </html>

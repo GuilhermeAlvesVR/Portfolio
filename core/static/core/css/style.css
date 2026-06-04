@@ -379,8 +379,26 @@ a { text-decoration: none; color: inherit; }
     color: var(--text);
 }
 
+.tech-fallback-icon {
+    font-size: 1.5rem;
+}
+
+.course-title {
+    margin-bottom: 8px;
+}
+
+.course-meta {
+    color: var(--muted);
+    font-size: .85rem;
+    margin-bottom: 16px;
+}
+
+.certificate-unavailable {
+    color: var(--muted);
+    font-size: .88rem;
+}
+
 /* ══════════════════════════════════════════
-  /* ══════════════════════════════════════════
    PROJETOS
 ══════════════════════════════════════════ */
 .projects-grid {
@@ -751,6 +769,7 @@ a { text-decoration: none; color: inherit; }
     width: 38px;
     height: 38px;
 
+    border: none;
     border-radius: 50%;
 
     display: flex;
@@ -790,5 +809,90 @@ a { text-decoration: none; color: inherit; }
     .modal-text {
         font-size: .95rem;
         line-height: 1.75;
+    }
+}
+
+/* ══════════════════════════════════════════
+   DETALHE DO PROJETO
+══════════════════════════════════════════ */
+.project-detail-page {
+    padding: 130px 0 90px;
+}
+
+.detail-back-link {
+    display: inline-block;
+    color: var(--gold);
+    font-weight: 700;
+    margin-bottom: 34px;
+}
+
+.project-detail-hero {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(320px, 460px);
+    gap: 54px;
+    align-items: center;
+    margin-bottom: 34px;
+}
+
+.project-detail-title {
+    font-family: 'Sora', sans-serif;
+    font-size: clamp(2.4rem, 5vw, 4.5rem);
+    line-height: 1.05;
+    margin-bottom: 22px;
+}
+
+.project-detail-description {
+    max-width: 640px;
+    color: var(--muted);
+    font-size: 1.02rem;
+    line-height: 1.8;
+}
+
+.detail-actions {
+    margin-top: 28px;
+}
+
+.project-detail-media {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 22px;
+    padding: 12px;
+    overflow: hidden;
+}
+
+.project-detail-media img {
+    width: 100%;
+    max-height: 360px;
+    object-fit: contain;
+    display: block;
+    border-radius: 16px;
+    background: #050816;
+}
+
+.project-detail-card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 28px;
+    margin-top: 22px;
+}
+
+.project-detail-card h2 {
+    font-family: 'Sora', sans-serif;
+    font-size: 1.35rem;
+    margin-bottom: 18px;
+}
+
+.detail-tags {
+    margin-bottom: 0;
+}
+
+.empty-text {
+    color: var(--muted);
+}
+
+@media (max-width: 900px) {
+    .project-detail-hero {
+        grid-template-columns: 1fr;
     }
 }

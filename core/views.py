@@ -1,4 +1,9 @@
+import os
+
+from django.contrib.auth import get_user_model
+from django.http import Http404, HttpResponse
 from django.shortcuts import render, get_object_or_404
+
 from .models import Project, Technology, About, Education, Course, Contact
 
 
@@ -26,20 +31,32 @@ def project_detail(request, slug):
     return render(request, "core/project_detail.html", {
         "project": project,
     })
-from django.http import HttpResponse
-from django.contrib.auth.models import User
 
 
-def criar_admin_temporario(request):
-    username = "adminrender"
-    password = "AdminRender123"
+def configurar_admin_render(request):
+    setup_token = os.environ.get("ADMIN_SETUP_TOKEN")
+    setup_password = os.environ.get("ADMIN_SETUP_PASSWORD")
 
-    if not User.objects.filter(username=username).exists():
-        User.objects.create_superuser(
-            username=username,
-            email="guilherme.s.alves96@gmail.com",
-            password=password
-        )
-        return HttpResponse("Superusuario criado com sucesso.")
+    if not setup_token or not setup_password:
+        raise Http404()
 
-    return HttpResponse("Superusuario ja existe.")
+    if request.GET.get("token") != setup_token:
+        raise Http404()
+
+    username = os.environ.get("ADMIN_SETUP_USERNAME", "admin")
+    email = os.environ.get("ADMIN_SETUP_EMAIL", "")
+    User = get_user_model()
+
+    user, created = User.objects.get_or_create(
+        username=username,
+        defaults={"email": email, "is_staff": True, "is_superuser": True},
+    )
+
+    user.email = email
+    user.is_staff = True
+    user.is_superuser = True
+    user.set_password(setup_password)
+    user.save()
+
+    action = "criado" if created else "atualizado"
+    return HttpResponse(f"Superusuario {action}. Usuario: {username}")

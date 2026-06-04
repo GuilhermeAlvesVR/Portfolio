@@ -1,0 +1,39 @@
+Alteracoes realizadas no portfolio
+
+1. Seguranca
+- Removi a view criar_admin_temporario do arquivo core/views.py.
+- Removi a rota /criar-admin-temporario/ do arquivo portfolio/urls.py.
+- Essa rota criava um superusuario com senha fixa, o que era perigoso se o projeto fosse publicado.
+
+2. Configuracoes de deploy
+- Ajustei portfolio/settings.py para ler DJANGO_SECRET_KEY, DJANGO_DEBUG e DJANGO_ALLOWED_HOSTS por variaveis de ambiente.
+- Mantive valores padrao para o projeto continuar funcionando localmente.
+
+3. Pagina de detalhe do projeto
+- Reestruturei core/templates/core/project_detail.html para seguir o mesmo visual da home.
+- Adicionei header, link de volta, area hero, midia do projeto, descricao completa, tecnologias e botoes padronizados.
+
+4. CSS e organizacao visual
+- Adicionei estilos especificos para a pagina de detalhe do projeto em core/static/core/css/style.css.
+- Movi estilos inline de cursos e tecnologia fallback para classes CSS.
+- Corrigi um comentario duplicado/quebrado na secao de projetos do CSS.
+
+5. Modal de projetos
+- Adicionei role="dialog", aria-modal e aria-labelledby nos modais.
+- Troquei o botao de fechar para um button real com aria-label.
+- Adicionei foco no conteudo ao abrir o modal.
+- Adicionei fechamento do modal com a tecla Esc.
+
+Observacao
+- As mudancas foram pensadas para deixar o portfolio mais seguro, mais consistente visualmente e mais profissional para deploy.
+
+6. Acesso ao admin no Render sem console
+- Adicionei uma rota protegida por variaveis de ambiente: /configurar-admin-render/?token=SEU_TOKEN
+- Essa rota cria ou atualiza um superusuario sem deixar usuario/senha fixos no codigo.
+- Ela so funciona quando ADMIN_SETUP_TOKEN e ADMIN_SETUP_PASSWORD estiverem configurados no ambiente.
+- Variaveis aceitas no Render:
+  ADMIN_SETUP_TOKEN: token secreto para liberar a rota
+  ADMIN_SETUP_USERNAME: nome do usuario admin desejado, padrao admin
+  ADMIN_SETUP_PASSWORD: nova senha do admin
+  ADMIN_SETUP_EMAIL: email do admin, opcional
+- Depois de usar, remova ADMIN_SETUP_TOKEN e ADMIN_SETUP_PASSWORD do Render ou remova essa rota do codigo.

@@ -71,28 +71,28 @@
 
             <div class="about-details">
                 <div class="detail-item">
-                    <span class="detail-icon">🎓</span>
+                    <span class="detail-icon" aria-hidden="true">🎓</span>
                     <div>
                         <strong>Área</strong>
                         <span>Desenvolvimento de Software</span>
                     </div>
                 </div>
                 <div class="detail-item">
-                    <span class="detail-icon">🛠️</span>
+                    <span class="detail-icon" aria-hidden="true">🛠️</span>
                     <div>
                         <strong>Stack principal</strong>
                         <span>C# · Python · ASP.NET Core · SQL</span>
                     </div>
                 </div>
                 <div class="detail-item">
-                    <span class="detail-icon">📍</span>
+                    <span class="detail-icon" aria-hidden="true">📍</span>
                     <div>
                         <strong>Localização</strong>
                         <span>Brasil</span>
                     </div>
                 </div>
                 <div class="detail-item">
-                    <span class="detail-icon">✅</span>
+                    <span class="detail-icon" aria-hidden="true">✅</span>
                     <div>
                         <strong>Disponibilidade</strong>
                         <span>Aberto a oportunidades</span>
@@ -133,7 +133,7 @@
 
                 
                 {% if project.full_description %}
-                <button class="details-btn" onclick="openModal('project-modal-{{ project.id }}')">
+                <button class="details-btn" type="button" onclick="openModal('project-modal-{{ project.id }}')" aria-haspopup="dialog">
                     Ler mais
                 </button>
             {% endif %}
@@ -163,14 +163,14 @@
         </div>
 
         {% if project.full_description %}
-        <div class="project-modal" id="project-modal-{{ project.id }}">
-            <div class="modal-content">
+        <div class="project-modal" id="project-modal-{{ project.id }}" role="dialog" aria-modal="true" aria-labelledby="project-modal-title-{{ project.id }}">
+            <div class="modal-content" tabindex="-1">
 
-                <span class="close-btn" onclick="closeModal('project-modal-{{ project.id }}')">
+                <button class="close-btn" type="button" onclick="closeModal('project-modal-{{ project.id }}')" aria-label="Fechar detalhes do projeto">
                     &times;
-                </span>
+                </button>
 
-                <h2>{{ project.title }}</h2>
+                <h2 id="project-modal-title-{{ project.id }}">{{ project.title }}</h2>
 
                 <div class="modal-text">
                     {{ project.full_description|linebreaks }}
@@ -195,7 +195,7 @@
                 {% if tech.icon %}
                     <img src="{{ tech.icon.url }}" alt="{{ tech.name }}">
                 {% else %}
-                    <span style="font-size:1.5rem;">💻</span>
+                    <span class="tech-fallback-icon" aria-hidden="true">💻</span>
                 {% endif %}
                 <span>{{ tech.name }}</span>
             </div>
@@ -232,10 +232,10 @@
             {% for c in courses %}
             <div class="project-card">
                 <div class="project-body">
-                    <h3 style="margin-bottom:8px;">{{ c.name }}</h3>
+                    <h3 class="course-title">{{ c.name }}</h3>
 
                     {% if c.platform or c.conclusion_date %}
-                    <p style="color:var(--muted);font-size:.85rem;margin-bottom:16px;">
+                    <p class="course-meta">
                         {% if c.platform %}{{ c.platform }}{% endif %}
                         {% if c.platform and c.conclusion_date %} · {% endif %}
                         {% if c.conclusion_date %}{{ c.conclusion_date }}{% endif %}
@@ -247,7 +247,7 @@
                             Ver certificado
                         </a>
                     {% else %}
-                        <span style="color:var(--muted);font-size:.88rem;">Certificado não disponível</span>
+                        <span class="certificate-unavailable">Certificado não disponível</span>
                     {% endif %}
                 </div>
             </div>
@@ -314,7 +314,9 @@
 </footer>
 <script>
 function openModal(id) {
-    document.getElementById(id).style.display = 'flex';
+    const modal = document.getElementById(id);
+    modal.style.display = 'flex';
+    modal.querySelector('.modal-content').focus();
 }
 
 function closeModal(id) {
@@ -327,6 +329,14 @@ window.addEventListener('click', function(event) {
             modal.style.display = 'none';
         }
     });
+});
+
+window.addEventListener('keydown', function(event) {
+    if (event.key === 'Escape') {
+        document.querySelectorAll('.project-modal').forEach(function(modal) {
+            modal.style.display = 'none';
+        });
+    }
 });
 </script>
 
