@@ -6,6 +6,7 @@
 
 <!-- ══ HERO ══ -->
 <section id="inicio" class="hero">
+    <canvas id="particlesCanvas"></canvas>
     <div class="hero-bg">
         <div class="orb"></div>
         <div class="orb"></div>
@@ -24,7 +25,7 @@
             <div class="hero-text">
                 <span class="hero-label">DESENVOLVEDOR EM FORMAÇÃO</span>
                 <div class="hero-title-row">
-                    <h1 class="hero-title">GUILHERME <span>ALVES</span></h1>
+                    <h1 class="hero-title" id="heroTitle">GUILHERME <span>ALVES</span></h1>
                     <div class="hero-photo-wrap">
                         <img src="{% static 'core/img/perfil.png' %}" class="hero-photo" alt="Guilherme Alves" loading="lazy">
                     </div>
@@ -34,15 +35,15 @@
                 </div>
                 <div class="hero-stats" aria-label="Resumo profissional">
                     <div>
-                        <strong>{{ projects.paginator.count }}</strong>
+                        <strong class="count-num" data-target="{{ projects.paginator.count }}">0</strong>
                         <span>projetos</span>
                     </div>
                     <div>
-                        <strong>{{ technologies|length }}</strong>
+                        <strong class="count-num" data-target="{{ technologies|length }}">0</strong>
                         <span>tecnologias</span>
                     </div>
                     <div>
-                        <strong>{{ courses|length }}</strong>
+                        <strong class="count-num" data-target="{{ courses|length }}">0</strong>
                         <span>cursos</span>
                     </div>
                 </div>
@@ -131,9 +132,9 @@
             {% endif %}
         </div>
 
-        <div class="projects-grid">
+        <div class="projects-grid stagger-grid">
             {% for project in projects %}
-            <div class="project-card">
+            <div class="project-card stagger-item">
                 {% if project.gif %}
                 <div class="project-img-wrap">
                     <img src="{{ project.gif.url }}" alt="{{ project.title }}" loading="lazy" data-lightbox="{{ project.gif.url }}" style="cursor:zoom-in">
