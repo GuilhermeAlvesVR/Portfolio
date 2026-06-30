@@ -1,0 +1,34 @@
+{% extends "core/base.html" %}
+{% load static %}
+
+{% block title %}{{ post.title }} | Guilherme Alves{% endblock %}
+{% block meta_description %}{{ meta_description }}{% endblock %}
+
+{% block content %}
+<main style="padding-top:120px;padding-bottom:60px">
+    <div class="container">
+        <a href="{% url 'blog_list' %}" class="detail-back-link">&larr; Voltar para o blog</a>
+
+        <article class="blog-article">
+            <p class="section-label">{{ post.created_at|date:"d/m/Y" }}</p>
+            <h1 class="project-detail-title">{{ post.title }}</h1>
+
+            {% if post.image %}
+            <div class="project-detail-media" style="margin-bottom:32px">
+                <img src="{{ post.image.url }}" alt="{{ post.title }}" loading="lazy">
+            </div>
+            {% endif %}
+
+            {% if post.tags.all %}
+            <div class="project-tags" style="margin-bottom:24px">
+                {% for tag in post.tags.all %}
+                <span class="tag">{{ tag.name }}</span>
+                {% endfor %}
+            </div>
+            {% endif %}
+
+            <div class="blog-content">{{ post.content|linebreaks }}</div>
+        </article>
+    </div>
+</main>
+{% endblock %}

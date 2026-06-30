@@ -1,0 +1,251 @@
+[
+{
+  "model": "core.technology",
+  "pk": 1,
+  "fields": {
+    "name": "C#",
+    "icon_class": "Icon class: fa-brands fa-microsoft",
+    "icon": "technologies/6132221.png"
+  }
+},
+{
+  "model": "core.technology",
+  "pk": 2,
+  "fields": {
+    "name": ".NET",
+    "icon_class": "",
+    "icon": "technologies/NET_Core_Logo.svg.png"
+  }
+},
+{
+  "model": "core.technology",
+  "pk": 3,
+  "fields": {
+    "name": "SQL",
+    "icon_class": "",
+    "icon": "technologies/download.jpg"
+  }
+},
+{
+  "model": "core.technology",
+  "pk": 4,
+  "fields": {
+    "name": "Git",
+    "icon_class": "",
+    "icon": "technologies/git-original.png"
+  }
+},
+{
+  "model": "core.technology",
+  "pk": 5,
+  "fields": {
+    "name": "GitHub",
+    "icon_class": "",
+    "icon": "technologies/github-original_02VytWr.png"
+  }
+},
+{
+  "model": "core.technology",
+  "pk": 6,
+  "fields": {
+    "name": "Python",
+    "icon_class": "",
+    "icon": "technologies/python-original.png"
+  }
+},
+{
+  "model": "core.technology",
+  "pk": 7,
+  "fields": {
+    "name": "HTML",
+    "icon_class": "",
+    "icon": "technologies/html5-plain-wordmark-_1_.png"
+  }
+},
+{
+  "model": "core.technology",
+  "pk": 8,
+  "fields": {
+    "name": "ASP.NET Core",
+    "icon_class": "",
+    "icon": "technologies/png-clipart-entity-framework-core-asp-net-core-net-framework-microsoft-blue_htuqS0i.png"
+  }
+},
+{
+  "model": "core.technology",
+  "pk": 9,
+  "fields": {
+    "name": "Bash",
+    "icon_class": "",
+    "icon": ""
+  }
+},
+{
+  "model": "core.technology",
+  "pk": 10,
+  "fields": {
+    "name": "Linux",
+    "icon_class": "",
+    "icon": ""
+  }
+},
+{
+  "model": "core.technology",
+  "pk": 11,
+  "fields": {
+    "name": "CSS",
+    "icon_class": "",
+    "icon": ""
+  }
+},
+{
+  "model": "core.technology",
+  "pk": 12,
+  "fields": {
+    "name": "JavaScript",
+    "icon_class": "",
+    "icon": ""
+  }
+},
+{
+  "model": "core.technology",
+  "pk": 13,
+  "fields": {
+    "name": "Docker",
+    "icon_class": "",
+    "icon": ""
+  }
+},
+{
+  "model": "core.project",
+  "pk": 1,
+  "fields": {
+    "title": "DevTrack",
+    "slug": "devtrack",
+    "description": "Painel que analisa perfis do GitHub, exibindo métricas, repositórios, linguagens mais usadas e atividades recentes.",
+    "full_description": "O DevTrack é uma aplicação web desenvolvida em ASP.NET Core MVC para visualizar e acompanhar informações públicas de desenvolvedores através da API do GitHub. O sistema centraliza dados do perfil, repositórios e atividades recentes em uma interface organizada e dinâmica, permitindo uma análise rápida da atividade de usuários da plataforma.\r\n\r\nA aplicação consome dados em tempo real da GitHub API para exibir informações como nome, biografia, seguidores, repositórios públicos e eventos recentes, incluindo commits, forks e outras atividades da conta. O projeto também conta com dashboard visual, organização em arquitetura MVC, suporte a dark mode e deploy em ambiente cloud utilizando Docker e Render.\r\n\r\nO principal desafio técnico foi estruturar o consumo da API do GitHub mantendo a aplicação organizada, responsiva e preparada para múltiplas requisições assíncronas. Para isso, utilizei separação em camadas utilizando Services no ASP.NET Core MVC, tratamento de chamadas HTTP assíncronas e integração entre backend e frontend para renderização dinâmica das informações.",
+    "image": "",
+    "gif": "projects/gifs/Desktop_whoUH4j.gif",
+    "github_link": "https://github.com/GuilhermeAlvesVR/devtrack",
+    "deploy_link": "",
+    "created_at": "2026-04-30",
+    "order": 0,
+    "technologies": [
+      1,
+      7,
+      8,
+      11,
+      12,
+      13
+    ]
+  }
+},
+{
+  "model": "core.project",
+  "pk": 2,
+  "fields": {
+    "title": "Python Network Scanner",
+    "slug": "python-network-scanner",
+    "description": "Projeto utilizado para testes de detecção de hosts e portas abertas, com foco na validação de resultados e comportamento do sistema.",
+    "full_description": "O Python Network Scanner foi desenvolvido para automatizar o processo de análise de redes locais, permitindo identificar dispositivos ativos e verificar portas abertas de forma rápida e organizada. A ferramenta utiliza Python e socket programming para realizar varreduras em hosts da rede e gerar relatórios automáticos com os resultados encontrados.\r\n\r\nO sistema realiza descoberta de hosts ativos, escaneamento de portas comuns e execução paralela de tarefas utilizando multithreading, reduzindo significativamente o tempo necessário para análise da rede. Além disso, os resultados são armazenados automaticamente em arquivos .txt, facilitando consultas futuras e registro das informações coletadas.\r\n\r\nO principal desafio técnico foi implementar escaneamento simultâneo de hosts e portas mantendo boa performance e organização do código. Para isso, utilizei multithreading para paralelizar as verificações de rede e melhorar a velocidade do scanner sem bloquear a execução principal da aplicação.",
+    "image": "",
+    "gif": "projects/gifs/Python.gif",
+    "github_link": "https://github.com/GuilhermeAlvesVR/python-network-scanner",
+    "deploy_link": "",
+    "created_at": "2026-05-04",
+    "order": 0,
+    "technologies": [
+      4,
+      6
+    ]
+  }
+},
+{
+  "model": "core.project",
+  "pk": 3,
+  "fields": {
+    "title": "Linux Automation Toolkit",
+    "slug": "linux-automation-toolkit",
+    "description": "Scripts utilizados para testes e validação de automações em ambiente Linux, garantindo execução correta e consistência das operações.",
+    "full_description": "O Linux Automation Toolkit foi desenvolvido para automatizar tarefas administrativas comuns em ambientes Linux utilizando scripts Bash executados via terminal. O projeto reúne múltiplas funcionalidades em uma única interface interativa, permitindo realizar operações de organização, backup e manutenção do sistema de forma rápida e prática.\r\n\r\nA aplicação conta com módulos independentes para exibição de informações do sistema, organização automática de arquivos por extensão, criação de backups compactados e limpeza de arquivos temporários. A estrutura modular do projeto foi organizada para facilitar manutenção, reutilização de scripts e expansão futura das funcionalidades.\r\n\r\nO principal desafio técnico foi estruturar automações seguras e reutilizáveis utilizando Bash, garantindo que operações críticas fossem executadas corretamente sem comprometer arquivos do sistema. Também trabalhei na separação lógica dos scripts e no fluxo de execução do menu principal para tornar o toolkit mais organizado e intuitivo.",
+    "image": "",
+    "gif": "projects/gifs/Linux.gif",
+    "github_link": "https://github.com/GuilhermeAlvesVR/linux-automation-toolkit",
+    "deploy_link": "",
+    "created_at": "2026-05-04",
+    "order": 0,
+    "technologies": [
+      4,
+      9,
+      10
+    ]
+  }
+},
+{
+  "model": "core.about",
+  "pk": 1,
+  "fields": {
+    "title": "Sobre mim",
+    "description": "Sou estudante de Sistemas de Informação com foco em desenvolvimento back-end e qualidade de software. Tenho experiência prática com C#, ASP.NET Core e Python, desenvolvendo APIs com integração a banco de dados, além de aplicar testes para garantir a confiabilidade dos sistemas. Desenvolvo projetos próprios para fortalecer minha base técnica, incluindo automações em Linux e aplicações completas."
+  }
+},
+{
+  "model": "core.education",
+  "pk": 1,
+  "fields": {
+    "course": "Sistemas de Informação",
+    "institution": "Centro Universitário Geraldo Di Biase — UGB",
+    "period": "Previsão de conclusão: Junho de 2029"
+  }
+},
+{
+  "model": "core.course",
+  "pk": 1,
+  "fields": {
+    "name": "Python Intermediário",
+    "platform": "SoloLearn",
+    "conclusion_date": "Novembro/2025",
+    "certificate": "certificates/Python_Intermediario.pdf"
+  }
+},
+{
+  "model": "core.course",
+  "pk": 2,
+  "fields": {
+    "name": "SQL Intermediário",
+    "platform": "SoloLearn",
+    "conclusion_date": "Novembro/2025",
+    "certificate": "certificates/SQL_Intermediario.pdf"
+  }
+},
+{
+  "model": "core.course",
+  "pk": 3,
+  "fields": {
+    "name": "HTML",
+    "platform": "IFRS",
+    "conclusion_date": "Julho/2023",
+    "certificate": "certificates/HTML_Introdução_ao_desenvolvimento_de_páginas_web-Certificado_digital_1956183_1.pdf"
+  }
+},
+{
+  "model": "core.course",
+  "pk": 4,
+  "fields": {
+    "name": "Excel Essencial",
+    "platform": "Cursa",
+    "conclusion_date": "Agosto/2023",
+    "certificate": "certificates/Excel_Essencial.pdf"
+  }
+},
+{
+  "model": "core.contact",
+  "pk": 1,
+  "fields": {
+    "email": "guilherme.alves.stw@gmail.com",
+    "github": "https://github.com/GuilhermeAlvesVR",
+    "linkedin": "https://www.linkedin.com/in/guilherme-alves-99383a28b/",
+    "whatsapp": "5524992078895"
+  }
+}
+]

@@ -51,9 +51,6 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "django.contrib.sitemaps",
-
-    "rest_framework",
 
     "core",
 ]
@@ -156,42 +153,3 @@ MEDIA_URL = os.environ.get('MEDIA_URL', '/media/' if DEBUG else f'{STATIC_URL}me
 MEDIA_ROOT = BASE_DIR / 'media'
 
 STATIC_ROOT = BASE_DIR / 'staticfiles'
-
-# ─── REST FRAMEWORK ────────────────────────────────────────────────
-REST_FRAMEWORK = {
-    "DEFAULT_PERMISSION_CLASSES": [
-        "rest_framework.permissions.AllowAny",
-    ],
-    "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
-    "PAGE_SIZE": 10,
-}
-
-# ─── DJANGO-MESSAGES VIA FRAMEWORK DE SESSÃO ────────────────────
-from django.contrib.messages import constants as message_constants
-MESSAGE_TAGS = {
-    message_constants.ERROR: "error",
-    message_constants.SUCCESS: "success",
-}
-
-# ─── CACHE ─────────────────────────────────────────────────────────
-CACHES = {
-    "default": {
-        "BACKEND": "django.core.cache.backends.locmem.LocMemCache",
-    }
-}
-
-# ─── SENTRY ────────────────────────────────────────────────────────
-import sentry_sdk
-from sentry_sdk.integrations.django import DjangoIntegration
-
-SENTRY_DSN = os.environ.get("SENTRY_DSN", "")
-if SENTRY_DSN:
-    sentry_sdk.init(
-        dsn=SENTRY_DSN,
-        integrations=[DjangoIntegration()],
-        traces_sample_rate=0.5,
-        send_default_pii=False,
-    )
-
-# ─── SITE ──────────────────────────────────────────────────────────
-SITE_ID = 1

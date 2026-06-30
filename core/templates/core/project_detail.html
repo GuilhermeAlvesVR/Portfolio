@@ -1,79 +1,60 @@
+{% extends "core/base.html" %}
 {% load static %}
 
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ project.title }} | Guilherme Alves</title>
-    <link rel="stylesheet" href="{% static 'core/css/style.css' %}">
-</head>
-<body>
+{% block title %}{{ project.title }} | Guilherme Alves{% endblock %}
+{% block meta_description %}{{ project.description }}{% endblock %}
 
-<header class="header">
-    <div class="container nav">
-        <a href="{% url 'home' %}" class="nav-logo">Guilherme Alves</a>
-        <nav class="nav-links">
-            <a href="{% url 'home' %}#projetos">Projetos</a>
-            <a href="{% url 'home' %}#contato">Contato</a>
-        </nav>
-    </div>
-</header>
-
+{% block content %}
 <main class="project-detail-page">
     <div class="container">
-        <a href="{% url 'home' %}#projetos" class="detail-back-link">← Voltar para projetos</a>
+        <a href="{% url 'home' %}#projetos" class="detail-back-link">&larr; Voltar para projetos</a>
 
         <section class="project-detail-hero">
             <div>
                 <p class="section-label">Projeto</p>
                 <h1 class="project-detail-title">{{ project.title }}</h1>
                 <p class="project-detail-description">{{ project.description }}</p>
-
                 <div class="project-links detail-actions">
                     {% if project.github_link %}
-                        <a href="{{ project.github_link }}" target="_blank" class="btn btn-outline">GitHub</a>
+                    <a href="{{ project.github_link }}" target="_blank" rel="noopener noreferrer" class="btn btn-outline">GitHub</a>
                     {% endif %}
-
                     {% if project.deploy_link %}
-                        <a href="{{ project.deploy_link }}" target="_blank" class="btn btn-primary">Ver Projeto</a>
+                    <a href="{{ project.deploy_link }}" target="_blank" rel="noopener noreferrer" class="btn btn-primary">Ver Projeto</a>
+                    {% endif %}
+                    {% if user.is_authenticated %}
+                    <a href="{% url 'project_update' project.slug %}" class="btn btn-outline"><i class="fa-solid fa-pen"></i> Editar</a>
+                    <a href="{% url 'project_delete' project.slug %}" class="btn btn-outline" style="border-color:var(--error);color:var(--error)"><i class="fa-solid fa-trash"></i> Excluir</a>
                     {% endif %}
                 </div>
             </div>
-
             {% if project.gif %}
-                <div class="project-detail-media">
-                    <img src="{{ project.gif.url }}" alt="Prévia do projeto {{ project.title }}">
-                </div>
+            <div class="project-detail-media">
+                <img src="{{ project.gif.url }}" alt="Prévia do projeto {{ project.title }}" loading="lazy" data-lightbox="{{ project.gif.url }}" style="cursor:zoom-in">
+            </div>
             {% elif project.image %}
-                <div class="project-detail-media">
-                    <img src="{{ project.image.url }}" alt="Imagem do projeto {{ project.title }}">
-                </div>
+            <div class="project-detail-media">
+                <img src="{{ project.image.url }}" alt="Imagem do projeto {{ project.title }}" loading="lazy" data-lightbox="{{ project.image.url }}" style="cursor:zoom-in">
+            </div>
             {% endif %}
         </section>
 
         {% if project.full_description %}
-        <section class="project-detail-card">
+        <section class="project-detail-card reveal">
             <h2>Sobre o projeto</h2>
-            <div class="modal-text">
-                {{ project.full_description|linebreaks }}
-            </div>
+            <div class="modal-text">{{ project.full_description|linebreaks }}</div>
         </section>
         {% endif %}
 
-        <section class="project-detail-card">
+        <section class="project-detail-card reveal">
             <h2>Tecnologias usadas</h2>
-
             <div class="project-tags detail-tags">
                 {% for tech in project.technologies.all %}
-                    <span class="tag">{{ tech.name }}</span>
+                <a href="{% url 'home' %}?tech={{ tech.name }}#projetos" class="tag tag-link">{{ tech.name }}</a>
                 {% empty %}
-                    <p class="empty-text">Nenhuma tecnologia cadastrada.</p>
+                <p class="empty-text">Nenhuma tecnologia cadastrada.</p>
                 {% endfor %}
             </div>
         </section>
     </div>
 </main>
-
-</body>
-</html>
+{% endblock %}

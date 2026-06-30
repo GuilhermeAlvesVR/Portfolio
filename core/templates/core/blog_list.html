@@ -1,0 +1,59 @@
+{% extends "core/base.html" %}
+{% load static %}
+
+{% block title %}Blog | Guilherme Alves{% endblock %}
+{% block meta_description %}Artigos e posts sobre desenvolvimento, tecnologia e carreira.{% endblock %}
+
+{% block content %}
+<main style="padding-top:120px;padding-bottom:60px">
+    <div class="container">
+        <p class="section-label">Blog</p>
+        <h1 class="section-title">Artigos</h1>
+        <p class="section-intro">Reflexões, aprendizados e anotações sobre tecnologia, desenvolvimento e carreira.</p>
+
+        {% if page_obj %}
+        <div class="projects-grid">
+            {% for post in page_obj %}
+            <div class="project-card">
+                {% if post.image %}
+                <div class="project-img-wrap">
+                    <img src="{{ post.image.url }}" alt="{{ post.title }}" loading="lazy">
+                </div>
+                {% endif %}
+                <div class="project-body">
+                    <h3><a href="{% url 'blog_detail' post.slug %}">{{ post.title }}</a></h3>
+                    <p>{{ post.summary|default:post.content|truncatewords:30 }}</p>
+                    <div class="project-tags">
+                        {% for tag in post.tags.all %}
+                        <span class="tag">{{ tag.name }}</span>
+                        {% endfor %}
+                    </div>
+                    <div class="project-links">
+                        <a href="{% url 'blog_detail' post.slug %}" class="btn btn-outline btn-sm">Ler mais</a>
+                    </div>
+                    <small style="color:var(--muted);display:block;margin-top:8px">{{ post.created_at|date:"d/m/Y" }}</small>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        {% if page_obj.has_other_pages %}
+        <div class="pagination" style="margin-top:40px">
+            {% if page_obj.has_previous %}
+            <a href="?page=1" class="btn btn-outline btn-sm">&laquo;</a>
+            <a href="?page={{ page_obj.previous_page_number }}" class="btn btn-outline btn-sm">&lsaquo;</a>
+            {% endif %}
+            <span class="pagination-info">{{ page_obj.number }} de {{ page_obj.paginator.num_pages }}</span>
+            {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}" class="btn btn-outline btn-sm">&rsaquo;</a>
+            <a href="?page={{ page_obj.paginator.num_pages }}" class="btn btn-outline btn-sm">&raquo;</a>
+            {% endif %}
+        </div>
+        {% endif %}
+
+        {% else %}
+        <p class="empty-text">Nenhum artigo publicado ainda.</p>
+        {% endif %}
+    </div>
+</main>
+{% endblock %}

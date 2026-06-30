@@ -1,0 +1,11 @@
+{% extends "core/base.html" %}
+
+{% block title %}Erro interno | Guilherme Alves{% endblock %}
+
+{% block content %}
+<div class="container" style="padding-top:140px;padding-bottom:80px;text-align:center">
+    <h1 style="font-size:clamp(4rem,10vw,8rem);font-family:'Sora',sans-serif;color:var(--gold);line-height:1">500</h1>
+    <p style="font-size:1.3rem;color:var(--muted);margin:16px 0 32px">Erro interno do servidor</p>
+    <a href="{% url 'home' %}" class="btn btn-primary">Voltar ao início</a>
+</div>
+{% endblock %}

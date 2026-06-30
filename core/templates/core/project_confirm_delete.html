@@ -1,0 +1,22 @@
+{% extends "core/base.html" %}
+{% load static %}
+
+{% block title %}Excluir Projeto | Guilherme Alves{% endblock %}
+
+{% block content %}
+<div class="container" style="padding-top:120px;padding-bottom:60px">
+    <div class="form-page">
+        <h1 class="section-title">Excluir Projeto</h1>
+        <p style="color:var(--muted);font-size:1.1rem;margin-bottom:24px">
+            Tem certeza que deseja excluir <strong>"{{ project.title }}"</strong>? Esta ação não pode ser desfeita.
+        </p>
+        <form method="post">
+            {% csrf_token %}
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary" style="background:var(--error);border-color:var(--error)">Sim, excluir</button>
+                <a href="{% url 'project_detail' project.slug %}" class="btn btn-outline">Cancelar</a>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
