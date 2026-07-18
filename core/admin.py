@@ -1,8 +1,18 @@
 from django.contrib import admin
+from django import forms
 from .models import (
     Project, Technology, About, Education, Course, Contact,
     Post, PostTag, Message,
 )
+
+
+class ProjectAdminForm(forms.ModelForm):
+    class Meta:
+        model = Project
+        fields = "__all__"
+        widgets = {
+            "technologies": forms.CheckboxSelectMultiple,
+        }
 
 
 @admin.register(Technology)
@@ -13,10 +23,10 @@ class TechnologyAdmin(admin.ModelAdmin):
 
 @admin.register(Project)
 class ProjectAdmin(admin.ModelAdmin):
+    form = ProjectAdminForm
     list_display = ("title", "order", "created_at")
     search_fields = ("title", "description", "full_description")
     list_editable = ("order",)
-    filter_horizontal = ("technologies",)
     prepopulated_fields = {"slug": ("title",)}
 
     fields = (

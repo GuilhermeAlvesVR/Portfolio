@@ -25,6 +25,7 @@ class ProjectForm(forms.ModelForm):
         widgets = {
             "description": forms.Textarea(attrs={"rows": 4}),
             "full_description": forms.Textarea(attrs={"rows": 6}),
+            "technologies": forms.CheckboxSelectMultiple,
         }
 
 
